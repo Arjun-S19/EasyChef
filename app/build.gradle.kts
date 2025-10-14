@@ -1,11 +1,23 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.20"
+}
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(FileInputStream(localPropertiesFile))
 }
 
 android {
     namespace = "com.example.easychef"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.easychef"
@@ -18,6 +30,17 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField(
+            "String",
+            "SUPABASE_URL",
+            "\"${localProperties.getProperty("SUPABASE_URL")}\""
+        )
+        buildConfigField(
+            "String",
+            "SUPABASE_ANON_KEY",
+            "\"${localProperties.getProperty("SUPABASE_ANON_KEY")}\""
+        )
     }
 
     buildTypes {
@@ -33,11 +56,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -66,4 +88,24 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //noinspection UseTomlInstead
+    implementation(platform("io.github.jan-tennert.supabase:bom:3.2.4"))
+    //noinspection UseTomlInstead
+    implementation("io.github.jan-tennert.supabase:auth-kt")
+    //noinspection UseTomlInstead
+    implementation("io.github.jan-tennert.supabase:postgrest-kt")
+
+    //noinspection UseTomlInstead
+    implementation("io.ktor:ktor-client-okhttp:3.3.1")
+
+    //noinspection UseTomlInstead
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+    testImplementation(kotlin("test"))
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+    }
 }
