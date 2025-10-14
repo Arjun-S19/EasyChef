@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
  * and can query data from the backend.
  *
  * Requirements:
- *  - `SupabaseClient` initialized with a valid URL and anon key
+ *  - `SupabaseClientProvider` initialized with a valid URL and anon key
  *  - Supabase table `test_table` exists with columns `id` and `name`
  *  - RLS is disabled for this table
  *  - First row with name = "Hello World!" is present
@@ -31,7 +31,7 @@ class SupabaseConnectionTest {
      */
     @Before
     fun setup() {
-        client = com.example.easychef.SupabaseClient.client
+        client = SupabaseClientProvider.client
     }
 
     /**
@@ -60,7 +60,7 @@ class SupabaseConnectionTest {
 
                 println("Supabase connection test succeeded")
 
-            } catch (t: Throwable) {
+            } catch (_: Throwable) {
                 throw AssertionError("Supabase connection test failed.")
             }
         }

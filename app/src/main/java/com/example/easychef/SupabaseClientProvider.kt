@@ -15,16 +15,15 @@ import io.ktor.client.engine.okhttp.OkHttp
  *  - Installs Auth and PostgREST modules
  *
  * Usage:
- *  Access the client via `SupabaseClient.client`
+ *  Access the client via `SupabaseClientProvider.client`
  *  Example:
- *      val data = SupabaseClient.client.postgrest["table_name"].select()
+ *      val data = SupabaseClientProvider.client.postgrest["table_name"].select()
  *
  * Notes:
  *  - The instance is created lazily; it is built only on first access.
  *  - Add other modules (Realtime, Storage, Functions) here if needed.
  */
-object SupabaseClient {
-
+object SupabaseClientProvider {
     /** Lazily created Supabase client shared across the app */
     val client by lazy {
         createSupabaseClient(
