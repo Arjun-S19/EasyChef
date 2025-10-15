@@ -1,7 +1,6 @@
 package com.example.easychef.data.repository
 
 import com.example.easychef.data.model.PantryItem
-import com.example.easychef.data.model.Preferences
 import com.example.easychef.data.model.UserProfile
 import com.example.easychef.domain.UserProfileRepository
 import io.github.jan.supabase.SupabaseClient
@@ -27,7 +26,7 @@ class SupabaseUserProfileRepository @Inject constructor(
     override suspend fun getProfile(userId: UUID): UserProfile? {
         return try {
             table.select {
-                filter { eq(UserProfile.Companion.SerializedKeys.USER_ID, userId.toString()) }
+                filter { eq("user_id", userId.toString()) }
             }.decodeSingleOrNull<UserProfile>()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -41,10 +40,10 @@ class SupabaseUserProfileRepository @Inject constructor(
     override suspend fun updatePantry(userId: UUID, pantryData: List<PantryItem>): Boolean {
         return try {
             table.update({
-                set(UserProfile.Companion.SerializedKeys.PANTRY, pantryData)
-                set(UserProfile.Companion.SerializedKeys.UPDATED_DATE, "now()")
+                set("pantry", pantryData)
+                set("updated_date", "now()")
             }) {
-                filter { eq(UserProfile.Companion.SerializedKeys.USER_ID, userId.toString()) }
+                filter { eq("user_id", userId.toString()) }
             }
             true
         } catch (e: Exception) {
@@ -56,14 +55,14 @@ class SupabaseUserProfileRepository @Inject constructor(
     /**
      * Updates the `diet` and `cuisines` columns for a specific user.
      */
-    override suspend fun updatePreferences(userId: UUID, preferences: Preferences): Boolean {
+    override suspend fun updatePreferences(userId: UUID, diet: String, cuisines: List<String>): Boolean {
         return try {
             table.update({
-                set(UserProfile.Companion.SerializedKeys.DIET, preferences.diet)
-                set(UserProfile.Companion.SerializedKeys.CUISINES, preferences.cuisines)
-                set(UserProfile.Companion.SerializedKeys.UPDATED_DATE, "now()")
+                set("diet", diet)
+                set("cuisines", cuisines)
+                set("updated_date", "now()")
             }) {
-                filter { eq(UserProfile.Companion.SerializedKeys.USER_ID, userId.toString()) }
+                filter { eq("user_id", userId.toString()) }
             }
             true
         } catch (e: Exception) {
