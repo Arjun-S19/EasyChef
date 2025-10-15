@@ -1,8 +1,7 @@
 package com.example.easychef.domain
 
-import com.example.easychef.data.model.UserProfile
 import com.example.easychef.data.model.PantryItem
-import com.example.easychef.data.model.Preferences
+import com.example.easychef.data.model.UserProfile
 import java.util.UUID
 
 /**
@@ -48,15 +47,16 @@ interface UserProfileRepository {
      *
      * **Usage:**
      * ```kotlin
-     * val newPreferences = Preferences(
+     * val success = userProfileRepository.updatePreferences(
+     * userId = someUserId,
      * diet = "Vegetarian",
      * cuisines = listOf("Italian", "Mexican")
      * )
-     * val success = userProfileRepository.updatePreferences(someUserId, newPreferences)
      * ```
      * @param userId The unique UUID of the user.
-     * @param preferences A [Preferences] object containing the new settings.
+     * @param diet A string representing the user's diet.
+     * @param cuisines A list of strings for the user's favorite cuisines.
      * @return `true` if the update was successful, `false` otherwise.
      */
-    suspend fun updatePreferences(userId: UUID, preferences: Preferences): Boolean
+    suspend fun updatePreferences(userId: UUID, diet: String, cuisines: List<String>): Boolean
 }
