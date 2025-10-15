@@ -1,4 +1,4 @@
-package com.example.easychef.data
+package com.example.easychef.data.repository
 
 import com.example.easychef.domain.AuthRepository
 import io.github.jan.supabase.SupabaseClient

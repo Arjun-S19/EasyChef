@@ -1,7 +1,7 @@
 package com.example.easychef.di
 
 import com.example.easychef.BuildConfig
-import com.example.easychef.data.SupabaseAuthRepository
+import com.example.easychef.data.repository.SupabaseAuthRepository
 import com.example.easychef.domain.AuthRepository
 import dagger.Binds
 import dagger.Module
