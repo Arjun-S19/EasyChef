@@ -29,7 +29,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.easychef.HiltTestRunner"
+
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -105,17 +106,22 @@ dependencies {
 
     //noinspection UseTomlInstead
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+    //noinspection UseTomlInstead
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
     testImplementation(kotlin("test"))
 
     // Hilt dependencies
     //noinspection UseTomlInstead
     implementation("com.google.dagger:hilt-android:2.57.2")
     //noinspection UseTomlInstead
-    implementation("com.google.dagger:hilt-android:2.57.2")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.57.2")
     //noinspection UseTomlInstead
     kapt("com.google.dagger:hilt-compiler:2.57.2")
     //noinspection UseTomlInstead
     implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
+
+    //noinspection UseTomlInstead
+    testImplementation("io.mockk:mockk:1.14.6")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
