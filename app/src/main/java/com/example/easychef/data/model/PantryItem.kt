@@ -16,9 +16,25 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class PantryItem(
-    @SerialName("ingredient_id")
+    @SerialName(SerializedKeys.INGREDIENT_ID)
     val ingredientId: String,
+    @SerialName(SerializedKeys.NAME)
     val name: String,
+    @SerialName(SerializedKeys.QUANTITY)
     val quantity: Double,
+    @SerialName(SerializedKeys.UNIT)
     val unit: String
-)
+) {
+    /**
+     * Contains the string constants for the serialized JSON keys.
+     * This prevents naming differences in the codebase.
+     */
+    companion object {
+        object SerializedKeys {
+            const val INGREDIENT_ID = "ingredient_id"
+            const val NAME = "name"
+            const val QUANTITY = "quantity"
+            const val UNIT = "unit"
+        }
+    }
+}

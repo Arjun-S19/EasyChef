@@ -27,7 +27,7 @@ class SupabaseUserProfileRepository @Inject constructor(
     override suspend fun getProfile(userId: UUID): UserProfile? {
         return try {
             table.select {
-                filter { eq("user_id", userId.toString()) }
+                filter { eq(UserProfile.Companion.SerializedKeys.USER_ID, userId.toString()) }
             }.decodeSingleOrNull<UserProfile>()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -41,10 +41,10 @@ class SupabaseUserProfileRepository @Inject constructor(
     override suspend fun updatePantry(userId: UUID, pantryData: List<PantryItem>): Boolean {
         return try {
             table.update({
-                set("pantry", pantryData)
-                set("updated_date", "now()")
+                set(UserProfile.Companion.SerializedKeys.PANTRY, pantryData)
+                set(UserProfile.Companion.SerializedKeys.UPDATED_DATE, "now()")
             }) {
-                filter { eq("user_id", userId.toString()) }
+                filter { eq(UserProfile.Companion.SerializedKeys.USER_ID, userId.toString()) }
             }
             true
         } catch (e: Exception) {
@@ -59,11 +59,11 @@ class SupabaseUserProfileRepository @Inject constructor(
     override suspend fun updatePreferences(userId: UUID, preferences: Preferences): Boolean {
         return try {
             table.update({
-                set("diet", preferences.diet)
-                set("cuisines", preferences.cuisines)
-                set("updated_date", "now()")
+                set(UserProfile.Companion.SerializedKeys.DIET, preferences.diet)
+                set(UserProfile.Companion.SerializedKeys.CUISINES, preferences.cuisines)
+                set(UserProfile.Companion.SerializedKeys.UPDATED_DATE, "now()")
             }) {
-                filter { eq("user_id", userId.toString()) }
+                filter { eq(UserProfile.Companion.SerializedKeys.USER_ID, userId.toString()) }
             }
             true
         } catch (e: Exception) {

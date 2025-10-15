@@ -18,13 +18,31 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class UserProfile(
-    @SerialName("user_id")
+    @SerialName(SerializedKeys.USER_ID)
     val userId: String,
-    @SerialName("user_name")
+    @SerialName(SerializedKeys.USERNAME)
     val userName: String?,
+    @SerialName(SerializedKeys.PANTRY)
     val pantry: List<PantryItem>,
+    @SerialName(SerializedKeys.DIET)
     val diet: String?,
+    @SerialName(SerializedKeys.CUISINES)
     val cuisines: List<String>,
-    @SerialName("updated_date")
+    @SerialName(SerializedKeys.UPDATED_DATE)
     val updatedDate: String?
-)
+) {
+    /**
+     * Contains the string constants for the serialized JSON keys,
+     * which correspond to the column names in the database table.
+     */
+    companion object {
+        object SerializedKeys {
+            const val USER_ID = "user_id"
+            const val USERNAME = "user_name"
+            const val PANTRY = "pantry"
+            const val DIET = "diet"
+            const val CUISINES = "cuisines"
+            const val UPDATED_DATE = "updated_date"
+        }
+    }
+}
