@@ -1,8 +1,10 @@
 package com.example.easychef.di
 
 import com.example.easychef.BuildConfig
-import com.example.easychef.data.repository.SupabaseAuthRepository
 import com.example.easychef.domain.AuthRepository
+import com.example.easychef.domain.UserProfileRepository
+import com.example.easychef.data.repository.SupabaseAuthRepository
+import com.example.easychef.data.repository.SupabaseUserProfileRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -36,9 +38,22 @@ abstract class SupabaseModule {
      */
     @Binds
     @Singleton
-    abstract fun bindAuthRepository(
-        impl: SupabaseAuthRepository
-    ): AuthRepository
+    abstract fun bindAuthRepository(impl: SupabaseAuthRepository): AuthRepository
+
+    /**
+     * Binds the UserProfileRepository interface to its Supabase implementation.
+     *
+     * This tells Hilt that whenever a component requests a [UserProfileRepository],
+     * it should provide an instance of [SupabaseUserProfileRepository]. This is a
+     * more efficient way of providing an implementation for an interface
+     * compared to using @Provides.
+     *
+     * @param impl The concrete implementation of the repository.
+     * @return An instance satisfying the [UserProfileRepository] contract.
+     */
+    @Binds
+    @Singleton
+    abstract fun bindUserProfileRepository(impl: SupabaseUserProfileRepository): UserProfileRepository
 
     /**
      * Companion object to hold the @Provides functions, which create instances
