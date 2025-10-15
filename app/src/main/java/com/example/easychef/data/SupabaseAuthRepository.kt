@@ -10,10 +10,6 @@ import javax.inject.Inject
 /**
  * Implements the AuthRepository interface using the SupabaseClient.
  *
- * This class is responsible for making the actual API calls to Supabase for
- * all authentication-related tasks. It is injected with a SupabaseClient
- * instance provided by Hilt.
- *
  * @property supabaseClient The main Supabase client provided by Hilt.
  */
 class SupabaseAuthRepository @Inject constructor(
@@ -21,8 +17,7 @@ class SupabaseAuthRepository @Inject constructor(
 ) : AuthRepository {
 
     /**
-     * {@inheritDoc}
-     * This implementation calls the Supabase `signInWith` function via the auth module.
+     * This implementation calls the Supabase `signInWith` function.
      */
     override suspend fun signInWithEmail(email: String, password: String): Boolean {
         return try {
@@ -38,8 +33,7 @@ class SupabaseAuthRepository @Inject constructor(
     }
 
     /**
-     * {@inheritDoc}
-     * This implementation calls the Supabase `signUpWith` function via the auth module.
+     * This implementation calls the Supabase `signUpWith` function.
      */
     override suspend fun signUpWithEmail(email: String, password: String): Boolean {
         return try {
@@ -55,8 +49,7 @@ class SupabaseAuthRepository @Inject constructor(
     }
 
     /**
-     * {@inheritDoc}
-     * This implementation calls the Supabase `signOut` function to clear the session.
+     * This implementation calls the Supabase `signOut` function.
      */
     override suspend fun signOut() {
         try {
@@ -67,9 +60,7 @@ class SupabaseAuthRepository @Inject constructor(
     }
 
     /**
-     * {@inheritDoc}
-     * This implementation retrieves the current user session from the auth client
-     * and converts the user ID string to a UUID.
+     * This implementation retrieves the current user session from the auth client.
      */
     override suspend fun currentUser(): UUID? {
         val user = supabaseClient.auth.currentUserOrNull()

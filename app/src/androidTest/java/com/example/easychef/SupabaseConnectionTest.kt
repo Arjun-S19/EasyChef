@@ -22,10 +22,10 @@ import javax.inject.Inject
 @RunWith(AndroidJUnit4::class)
 class SupabaseConnectionTest {
 
-    @get:Rule // 2. Add the Hilt rule
+    @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
-    @Inject // 3. Inject the SupabaseClient directly
+    @Inject
     lateinit var client: SupabaseClient
 
     /**
@@ -33,7 +33,7 @@ class SupabaseConnectionTest {
      */
     @Before
     fun setup() {
-        hiltRule.inject() // 4. This line injects the dependencies
+        hiltRule.inject()
     }
 
     /**
@@ -51,7 +51,6 @@ class SupabaseConnectionTest {
                 assertEquals("Hello World!", rows[0].name)
                 println("Supabase connection test succeeded")
             } catch (t: Throwable) {
-                // It's better to log the actual error for debugging
                 t.printStackTrace()
                 throw AssertionError("Supabase connection test failed.")
             }
