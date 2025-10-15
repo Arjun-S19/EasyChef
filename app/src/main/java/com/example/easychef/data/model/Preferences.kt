@@ -1,6 +1,5 @@
 package com.example.easychef.data.model
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -14,18 +13,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Preferences(
-    @SerialName(SerializedKeys.DIET)
     val diet: String?,
-    @SerialName(SerializedKeys.CUISINES)
     val cuisines: List<String>
-) {
-    /**
-     * Contains the string constants for the serialized JSON keys.
-     */
-    companion object {
-        object SerializedKeys {
-            const val DIET = "diet"
-            const val CUISINES = "cuisines"
-        }
-    }
-}
+)

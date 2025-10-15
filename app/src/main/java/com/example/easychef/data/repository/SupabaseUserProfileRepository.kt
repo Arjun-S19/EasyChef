@@ -1,6 +1,7 @@
 package com.example.easychef.data.repository
 
 import com.example.easychef.data.model.PantryItem
+import com.example.easychef.data.model.Preferences
 import com.example.easychef.data.model.UserProfile
 import com.example.easychef.domain.UserProfileRepository
 import io.github.jan.supabase.SupabaseClient
@@ -55,11 +56,11 @@ class SupabaseUserProfileRepository @Inject constructor(
     /**
      * Updates the `diet` and `cuisines` columns for a specific user.
      */
-    override suspend fun updatePreferences(userId: UUID, diet: String, cuisines: List<String>): Boolean {
+    override suspend fun updatePreferences(userId: UUID, preferences: Preferences): Boolean {
         return try {
             table.update({
-                set("diet", diet)
-                set("cuisines", cuisines)
+                set("diet", preferences.diet)
+                set("cuisines", preferences.cuisines)
                 set("updated_date", "now()")
             }) {
                 filter { eq("user_id", userId.toString()) }
