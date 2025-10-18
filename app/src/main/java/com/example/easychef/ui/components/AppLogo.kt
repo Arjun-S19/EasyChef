@@ -16,7 +16,7 @@ import com.example.easychef.R
 fun AppLogo(modifier: Modifier) {
     Image(
         // TODO Replace placeholder with the actual logo once it is finished
-        painter = painterResource(R.drawable.placeholderimg),
+        painter = painterResource(id = R.drawable.placeholder_image),
         contentDescription = "EasyChef App Logo",
         contentScale = ContentScale.FillBounds,
         modifier = modifier
