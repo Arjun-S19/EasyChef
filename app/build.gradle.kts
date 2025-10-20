@@ -93,6 +93,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    //Volley API dependency
+    /*
+    - simplified library requests for Andriod(GET, POST, PUT, DELETE)
+    - faster caching
+     */
+    implementation("com.android.volley:volley:1.2.1")
+
     // Supabase dependencies
     //noinspection UseTomlInstead
     implementation(platform("io.github.jan-tennert.supabase:bom:3.2.4"))
